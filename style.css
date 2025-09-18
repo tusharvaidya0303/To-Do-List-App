@@ -82,3 +82,56 @@ body {
   list-style: none;
   width: 100%;
 }
+#task-list li {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 10px 15px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  color: #fff;
+  backdrop-filter: blur(5px);
+}
+.empty-image {
+  display: block;
+  margin: 20px auto;
+  opacity: 0.5;
+}
+.empty-image:hover {
+  opacity: 1;
+  transform: scale(1.05);
+  transition: all 0.3s ease;
+}
+#task-list li.checked {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+#task-list li .delete {
+  float: right;
+  color: #ff6b81;
+  font-weight: bold;
+  cursor: pointer;
+  margin-left: 10px;
+}
+#task-list li .delete:hover {
+  color: white;
+}
+#task-list li .delete:active {
+  transform: scale(1.2);
+}
+/* Responsive Design */
+@media (max-width: 500px) {
+  .todo-app {
+    padding: 1.5rem;
+    gap: 20px;
+  }
+  .todo-app h1 {
+    font-size: 2rem;
+  }
+  .input-area input {
+    font-size: 1rem;
+    padding: 8px 15px;
+  }
+  .input-area button {
+    font-size: 1rem;
+    padding: 6px;
+  }
+}
