@@ -22,7 +22,7 @@ addButton.addEventListener("click", () => {
     li.innerHTML = taskInput.value;
     listContainer.appendChild(li);
 
-    let deleteBtn = document.createElement("deleteBtn");
+    let deleteBtn = document.createElement("span");
     deleteBtn.innerHTML = "\u00d7"; // Unicode for the 'x' character
     deleteBtn.className = "delete"; // Add a class for styling
     li.appendChild(deleteBtn);
