@@ -1,50 +1,70 @@
-const taskInput = document.getElementById("task-input"); // your input id
-const addButton = document.getElementById("add-task-btn"); // your button id
-const listContainer = document.getElementById("task-list"); // your ul id
+const taskInput = document.getElementById("task-input"); 
+const addButton = document.getElementById("add-task-btn"); 
+const listContainer = document.getElementById("task-list"); 
 
-// Function to save tasks to local storage
+// Save tasks
 function saveData() {
   localStorage.setItem("tasks", listContainer.innerHTML);
 }
 
-// Function to show tasks from local storage
+// Show tasks
 function showTasks() {
   listContainer.innerHTML = localStorage.getItem("tasks");
 }
 
-// Add a new task
+// Add new task
 addButton.addEventListener("click", () => {
-  if (taskInput.value === "") {
-    // Display an alert if input is empty
+  const value = taskInput.value.trim();
+  if (!value) {
     alert("You must write something!");
-  } else {
-    let li = document.createElement("li");
-    li.innerHTML = taskInput.value;
-    listContainer.appendChild(li);
-
-    let deleteBtn = document.createElement("span");
-    deleteBtn.innerHTML = "\u00d7"; // Unicode for the 'x' character
-    deleteBtn.className = "delete"; // Add a class for styling
-    li.appendChild(deleteBtn);
-
-    // Clear the input field and reset placeholder
-    taskInput.value = "";
-    taskInput.placeholder = "Add your task";
-
-    saveData();
+    return;
   }
+
+  // Create list item
+  let li = document.createElement("li");
+  li.style.display = "flex";   // flex to align check, text, delete
+  li.style.alignItems = "center";
+
+  // ✅ Check button
+  let checkBtn = document.createElement("span");
+  checkBtn.innerHTML = "✔";
+  checkBtn.className = "check";
+  checkBtn.style.marginRight = "10px"; // space between check and text
+  li.appendChild(checkBtn);
+
+  // Task text
+  let taskText = document.createElement("span");
+  taskText.className = "task-text";
+  taskText.innerHTML = value;
+  li.appendChild(taskText);
+
+  // ❌ Delete button
+  let deleteBtn = document.createElement("span");
+  deleteBtn.innerHTML = "\u00d7";
+  deleteBtn.className = "delete";
+  deleteBtn.style.marginLeft = "auto"; // push delete to the right
+  li.appendChild(deleteBtn);
+
+  // Add to list
+  listContainer.appendChild(li);
+
+  // Clear input
+  taskInput.value = "";
+  taskInput.placeholder = "Add your task";
+
+  saveData();
 });
 
-// Handle clicks on list items (check or delete)
+// Handle clicks
 listContainer.addEventListener("click", (e) => {
-  if (e.target.tagName === "LI") {
-    e.target.classList.toggle("checked");
+  if (e.target.classList.contains("check")) {
+    e.target.parentElement.classList.toggle("checked");
     saveData();
-  } else if (e.target.tagName === "DELETEBTN") {
+  } else if (e.target.classList.contains("delete")) {
     e.target.parentElement.remove();
     saveData();
   }
 });
 
-// Load tasks when the page loads
+// Load tasks
 showTasks();
